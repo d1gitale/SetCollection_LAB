@@ -23,6 +23,14 @@ public class DynamicArray {
         this.backingArr = new int[capacity];
     }
 
+    public DynamicArray(DynamicArray arr) {
+        this.size = arr.size;
+        this.capacity = arr.capacity;
+        this.backingArr = new int[capacity];
+
+        System.arraycopy(arr.backingArr, 0, this.backingArr, 0, arr.size);
+    }
+
     public int get(int index) {
         if (index > size - 1 || index < 0) {
             throw new IndexOutOfBoundsException("Tried to access not existing element");
