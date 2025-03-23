@@ -19,7 +19,15 @@ public class SetCollection {
     }
 
     public void addElement(int element) {
-        return;
+        if (contains(element)) {
+            return;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (data.get(i) == element) {
+                data.addElement(i, element);
+            }
+        }
     }
 
     public void removeElement(int element) {
