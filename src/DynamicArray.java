@@ -32,7 +32,7 @@ public class DynamicArray {
     }
 
     public int get(int index) {
-        if (index > size - 1 || index < 0) {
+        if (index > capacity - 1 || index < 0) {
             throw new IndexOutOfBoundsException("Tried to access not existing element");
         }
 
@@ -45,6 +45,7 @@ public class DynamicArray {
         }
 
         int buf = element;
+        size++;
         for (int i = index; i < size; i++) {
             int popped = backingArr[i];
             backingArr[i] = buf;
