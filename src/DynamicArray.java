@@ -1,5 +1,3 @@
-import java.util.NoSuchElementException;
-
 public class DynamicArray {
     private int size;
     private int capacity;
@@ -26,16 +24,24 @@ public class DynamicArray {
     }
 
     public int get(int index) {
-        return 0;
+        if (index > size - 1 || index < 0) {
+            throw new IndexOutOfBoundsException("Tried to access not existing element");
+        }
+
+        return backingArr[index];
     }
 
-    public int[] append(int value) {
-        return new int[0];
+    public void append(int value) {
+        if (size == capacity) {
+            resize();
+        }
+
+        backingArr[size++] = value;
     }
 
     public int pop(int index) {
         if (size == 0 || index > size - 1 || index < 0) {
-            throw new NoSuchElementException("Tried to pop not existing element");
+            throw new IndexOutOfBoundsException("Tried to pop not existing element");
         }
 
         size--;
@@ -45,7 +51,10 @@ public class DynamicArray {
     }
 
     private void resize() {
-
+        capacity *= 2;
+        int[] newArray = new int[capacity];
+        System.arraycopy(backingArr, 0, newArray, 0, backingArr.length);
+        backingArr = newArray;
     }
 
     public int getSize() {
