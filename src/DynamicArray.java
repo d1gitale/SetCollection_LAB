@@ -39,12 +39,17 @@ public class DynamicArray {
         return backingArr[index];
     }
 
-    public void append(int value) {
+    public void addElement(int index, int element) {
         if (size == capacity) {
             resize();
         }
 
-        backingArr[size++] = value;
+        int buf = element;
+        for (int i = index; i < size; i++) {
+            int popped = backingArr[i];
+            backingArr[i] = buf;
+            buf = popped;
+        }
     }
 
     public int pop(int index) {
