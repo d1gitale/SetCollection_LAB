@@ -60,7 +60,16 @@ public class DynamicArray {
 
         size--;
         int value = backingArr[index];
-        backingArr[index] = 0;
+
+        if (index == size) {
+            backingArr[index] = 0;
+            return value;
+        }
+
+        for (int i = index + 1; i < size; i++) {
+            backingArr[i - 1] = backingArr[i];
+        }
+
         return value;
     }
 

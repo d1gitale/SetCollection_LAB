@@ -43,11 +43,31 @@ public class SetCollection {
     }
 
     public void removeElement(int element) {
-        return;
+        int foundIndex = findElement(element);
+        data.pop(foundIndex);
     }
 
     public boolean contains(int element) {
-        return false;
+        return findElement(element) != -1;
+    }
+
+    private int findElement(int element) {
+        int index = -1;
+        int low = 0;
+        int high = size - 1;
+
+        while (low <= high) {
+            int mid = low  + ((high - low) / 2);
+            if (data.get(mid) < element) {
+                low = mid + 1;
+            } else if (data.get(mid) > element) {
+                high = mid - 1;
+            } else if (data.get(mid) == element) {
+                index = mid;
+                break;
+            }
+        }
+        return index;
     }
 
     public int findMax() {
@@ -65,7 +85,13 @@ public class SetCollection {
     }
 
     public SetCollection combine(SetCollection set) {
-        return new SetCollection();
+        SetCollection combinedSet = new SetCollection(this);
+
+        for (int i = 0; i < set.getSize(); i++) {
+            combinedSet.addElement(set.getData().get(i));
+        }
+
+        return combinedSet;
     }
 
     public boolean areEqual(SetCollection set) {
@@ -104,11 +130,13 @@ public class SetCollection {
         SetCollection emptySet = new SetCollection();
         SetCollection setFromSet = new SetCollection(setFromArray);
 
-        // emptySet test
         for (int i = 0; i < DATA_LEN; i++) {
             emptySet.addElement((int)(java.lang.Math.random() * NUMBER_OF_DIGITS - java.lang.Math.random() * NUMBER_OF_DIGITS));
         }
 
+        SetCollection combinedSet = setFromArray.combine(setFromSet);
+
+        // emptySet test
         emptySet.iterate();
         System.out.printf("\nMax: %d\nMin: %d\n", emptySet.findMax(), emptySet.findMin());
         System.out.printf(
@@ -131,5 +159,8 @@ public class SetCollection {
                 "setFromArray == setFromArray? %b\nsetFromArray == setFromSet? %b\nsetFromArray == emptySet? %b\n\n",
                 setFromArray.areEqual(setFromArray), setFromArray.areEqual(setFromSet), setFromArray.areEqual(emptySet)
         );
+
+        // combinedSet test
+        combinedSet.iterate();
     }
 }
