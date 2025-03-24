@@ -45,6 +45,7 @@ public class SetCollection {
     public void removeElement(int element) {
         int foundIndex = findElement(element);
         data.pop(foundIndex);
+        size--;
     }
 
     public boolean contains(int element) {
@@ -114,53 +115,5 @@ public class SetCollection {
 
     public DynamicArray getData() {
         return data;
-    }
-
-    public static void main(String... args) {
-        final int NUMBER_OF_DIGITS = 1000000;
-        final int DATA_LEN = 10;
-
-        int[] arr = new int[DATA_LEN];
-
-        for (int i = 0; i < DATA_LEN; i++) {
-            arr[i] = (int)(java.lang.Math.random() * NUMBER_OF_DIGITS - java.lang.Math.random() * NUMBER_OF_DIGITS);
-        }
-
-        SetCollection setFromArray = new SetCollection(arr);
-        SetCollection emptySet = new SetCollection();
-        SetCollection setFromSet = new SetCollection(setFromArray);
-
-        for (int i = 0; i < DATA_LEN; i++) {
-            emptySet.addElement((int)(java.lang.Math.random() * NUMBER_OF_DIGITS - java.lang.Math.random() * NUMBER_OF_DIGITS));
-        }
-
-        SetCollection combinedSet = setFromArray.combine(setFromSet);
-
-        // emptySet test
-        emptySet.iterate();
-        System.out.printf("\nMax: %d\nMin: %d\n", emptySet.findMax(), emptySet.findMin());
-        System.out.printf(
-                "emptySet == emptySet? %b\nemptySet == setFromArray? %b\nemptySet == setFromSet? %b\n\n",
-                emptySet.areEqual(emptySet), emptySet.areEqual(setFromArray), emptySet.areEqual(setFromSet)
-        );
-
-        // setFromSet test
-        setFromSet.iterate();
-        System.out.printf("\nMax: %d\nMin: %d\n", setFromSet.findMax(), setFromSet.findMin());
-        System.out.printf(
-                "setFromSet == setFromSet? %b\nsetFromSet == setFromArray? %b\nsetFromSet == emptySet? %b\n\n",
-                setFromSet.areEqual(setFromSet), setFromSet.areEqual(setFromArray), setFromSet.areEqual(emptySet)
-        );
-
-        // setFromArray test
-        setFromArray.iterate();
-        System.out.printf("\nMax: %d\nMin: %d\n", setFromArray.findMax(), setFromArray.findMin());
-        System.out.printf(
-                "setFromArray == setFromArray? %b\nsetFromArray == setFromSet? %b\nsetFromArray == emptySet? %b\n\n",
-                setFromArray.areEqual(setFromArray), setFromArray.areEqual(setFromSet), setFromArray.areEqual(emptySet)
-        );
-
-        // combinedSet test
-        combinedSet.iterate();
     }
 }

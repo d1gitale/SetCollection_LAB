@@ -66,8 +66,8 @@ public class DynamicArray {
             return value;
         }
 
-        for (int i = index + 1; i < size; i++) {
-            backingArr[i - 1] = backingArr[i];
+        for (int i = index; i < size; i++) {
+            backingArr[i] = backingArr[i + 1];
         }
 
         return value;
